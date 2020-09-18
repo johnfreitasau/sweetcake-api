@@ -15,10 +15,9 @@ export default class CustomersController {
       postalCode,
       notes,
     } = request.body;
-    console.log('chegou aqui 1');
 
     const createCustomer = container.resolve(CreateCustomerService);
-    console.log('chegou aqui 2');
+
     const customer = await createCustomer.execute({
       name,
       email,

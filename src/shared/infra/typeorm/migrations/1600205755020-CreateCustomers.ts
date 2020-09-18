@@ -26,22 +26,27 @@ export default class CreateCustomers1600205755020
           {
             name: 'phone_number',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'address',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'city',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'postal_code',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'notes',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'created_at',
