@@ -1,9 +1,16 @@
 import { getRepository, Repository } from 'typeorm';
 import ICustomersRepository from '../../../repositories/ICustomersRepository';
 import ICreateCustomersDTO from '../../../dtos/ICreateCustomersDTO';
+import IFindAllWithPaginationAndSearchDTO from '../../../dtos/IFindAllWithPaginationAndSearchDTO';
+import IFindAllDTO from '../../../dtos/IFindAllDTO';
 import Customer from '../entities/Customer';
 
-class CustomersRepository implements ICustomersRepository {
+interface IResponseFindAllWithPaginationAndSearch {
+  customers: Customer[];
+  count: number;
+}
+
+export default class CustomersRepository implements ICustomersRepository {
   private ormRepository: Repository<Customer>;
 
   constructor() {
@@ -51,6 +58,44 @@ class CustomersRepository implements ICustomersRepository {
   public async save(customer: Customer): Promise<Customer> {
     return this.ormRepository.save(customer);
   }
-}
 
-export default CustomersRepository;
+  public async findAll({ deleted }: IFindAllDTO): Promise<Customer[]> {
+    const customers = await this.ormRepository.find({ withDeleted: deleted });
+
+    return customers;
+  }
+
+  public async findAllWithPaginationAndSearch(
+    data: IFindAllWithPaginationAndSearchDTO,
+  ): Promise<IResponseFindAllWithPaginationAndSearch> {
+    const { deleted, name, page } = data;
+
+    console.log('page:', page);
+
+    const query = this.ormRepository
+      .createQueryBuilder('customers')
+      .take(7)
+      .skip((page - 1) * 7)
+      .orderBy('customers.created_at', 'DESC');
+
+    console.log('page:', page);
+
+    if (name) {
+      query.where('name ILIKE :name', { name: `%${name}%` });
+    }
+
+    console.log('deleted:', deleted);
+
+    if (deleted) {
+      console.log('chegou aqui 3');
+      query.withDeleted().andWhere('deleted_at IS NOT NULL');
+    }
+
+    const [customers, count] = await query.getManyAndCount();
+
+    return {
+      customers,
+      count,
+    };
+  }
+}

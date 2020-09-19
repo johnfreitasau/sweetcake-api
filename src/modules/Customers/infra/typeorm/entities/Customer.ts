@@ -37,6 +37,9 @@ class Customer {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @UpdateDateColumn()
+  deleted_at: Date;
 }
 
 export default Customer;
