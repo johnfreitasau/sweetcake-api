@@ -80,7 +80,11 @@ export default class CustomersRepository implements ICustomersRepository {
 
     console.log('page:', page);
 
-    if (name) {
+    console.log(name);
+
+    if (name === undefined) {
+      console.log('Usou o filtro de nome');
+      console.log(name);
       query.where('name ILIKE :name', { name: `%${name}%` });
     }
 
