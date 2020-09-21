@@ -15,8 +15,8 @@ class UserTokensRepository implements IUserTokensRepository {
 
     await this.ormRepository.save(userToken);
 
-    console.log('From createToken:');
-    console.log(userToken.created_at);
+    // console.log('From createToken:');
+    // console.log(userToken.created_at);
 
     return userToken;
   }
@@ -26,8 +26,8 @@ class UserTokensRepository implements IUserTokensRepository {
       where: { token },
     });
 
-    console.log('From findByToken:');
-    console.log(userToken?.created_at);
+    // console.log('From findByToken:');
+    // console.log(userToken?.created_at);
 
     return userToken;
   }

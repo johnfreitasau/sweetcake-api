@@ -35,7 +35,7 @@ export default class CustomersController {
   public async index(request: Request, response: Response): Promise<Response> {
     const { deleted, name, page } = request.query;
 
-    console.log('deleted-controller:', deleted);
+    // console.log('deleted-controller:', deleted);
 
     const listCustomers = container.resolve(ListCustomersService);
 
