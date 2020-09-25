@@ -17,4 +17,5 @@ export default interface ICustomersRepository {
   findAllWithPaginationAndSearch(
     data: IFindAllWithPaginationAndSearchDTO,
   ): Promise<IResponseFindAllWithPaginationAndSearch>;
+  deleteById(id: string): Promise<void>;
 }

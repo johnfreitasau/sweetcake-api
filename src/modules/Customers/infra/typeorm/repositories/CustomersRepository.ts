@@ -70,28 +70,17 @@ export default class CustomersRepository implements ICustomersRepository {
   ): Promise<IResponseFindAllWithPaginationAndSearch> {
     const { deleted, name, page } = data;
 
-    console.log('page:', page);
-
     const query = this.ormRepository
       .createQueryBuilder('customers')
       .take(7)
       .skip((page - 1) * 7)
       .orderBy('customers.created_at', 'DESC');
 
-    console.log('page:', page);
-
-    console.log(name);
-
     if (name !== 'undefined') {
-      console.log('Usou o filtro de nome');
-      console.log(name);
       query.where('name ILIKE :name', { name: `%${name}%` });
     }
 
-    console.log('deleted:', deleted);
-
     if (deleted) {
-      console.log('chegou aqui 3');
       query.withDeleted().andWhere('deleted_at IS NOT NULL');
     }
 
@@ -101,5 +90,9 @@ export default class CustomersRepository implements ICustomersRepository {
       customers,
       count,
     };
+  }
+
+  public async deleteById(id: string): Promise<void> {
+    await this.ormRepository.softDelete(id);
   }
 }

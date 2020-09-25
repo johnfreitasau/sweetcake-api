@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  DeleteDateColumn,
 } from 'typeorm';
 
 @Entity('customers')
@@ -38,7 +39,7 @@ class Customer {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @UpdateDateColumn()
+  @DeleteDateColumn()
   deleted_at: Date;
 }
 
