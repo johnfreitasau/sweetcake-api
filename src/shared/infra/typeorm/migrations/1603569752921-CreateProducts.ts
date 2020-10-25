@@ -24,17 +24,17 @@ export default class CreateProducts1603569752921 implements MigrationInterface {
           },
           {
             name: 'unit_price',
-            type: 'varchar',
+            type: 'double precision',
             isNullable: true,
           },
           {
-            name: 'qtd_discount',
-            type: 'varchar',
+            name: 'qty_discount',
+            type: 'integer',
             isNullable: true,
           },
           {
             name: 'discount',
-            type: 'varchar',
+            type: 'float',
             isNullable: true,
           },
           {

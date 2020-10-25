@@ -1,3 +1,4 @@
+import Order from '@modules/orders/infra/typeorm/entities/Order';
 import {
   Entity,
   Column,
@@ -5,12 +6,16 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('customers')
 class Customer {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @OneToMany(() => Order, order => order.customer)
+  orders: Order[];
 
   @Column()
   name: string;

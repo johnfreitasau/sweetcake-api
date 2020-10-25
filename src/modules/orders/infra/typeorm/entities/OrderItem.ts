@@ -1,11 +1,14 @@
+import Product from '@modules/products/infra/typeorm/entities/Product';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  DeleteDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+import Order from './Order';
 
 @Entity('order_items')
 class OrderItem {
@@ -15,8 +18,16 @@ class OrderItem {
   @Column({ name: 'order_id' })
   orderId: string;
 
+  @ManyToOne(() => Order, order => order.orderItems)
+  @JoinColumn({ name: 'order_id' })
+  order: Order;
+
   @Column({ name: 'product_id' })
   productId: string;
+
+  @ManyToOne(() => Product)
+  @JoinColumn({ name: 'product_id' })
+  product: Product;
 
   @Column({ name: 'int' })
   quantity: number;

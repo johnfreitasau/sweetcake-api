@@ -19,13 +19,13 @@ class Product {
   category: string;
 
   @Column({ name: 'unit_price' })
-  unitPrice: string;
+  unitPrice: number;
 
   @Column({ name: 'qty_discount' })
-  qtyDiscount: string;
+  qtyDiscount: number;
 
   @Column()
-  discount: string;
+  discount: number;
 
   @Column()
   notes: string;

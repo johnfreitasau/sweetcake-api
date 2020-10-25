@@ -32,7 +32,7 @@ export default class CreateOrderItems1603570917758
             type: 'integer',
           },
           {
-            name: 'quantity_price',
+            name: 'qty_price',
             type: 'double precision',
           },
           {
@@ -59,7 +59,7 @@ export default class CreateOrderItems1603570917758
       }),
       new TableForeignKey({
         columnNames: ['product_id'],
-        referencedTableName: '',
+        referencedTableName: 'products',
         referencedColumnNames: ['id'],
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',

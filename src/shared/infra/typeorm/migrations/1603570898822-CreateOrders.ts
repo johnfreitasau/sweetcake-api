@@ -40,7 +40,7 @@ export default class CreateOrders1603570898822 implements MigrationInterface {
           },
           {
             name: 'is_pickup',
-            type: 'varchar',
+            type: 'boolean',
             isNullable: true,
           },
           {
@@ -55,6 +55,10 @@ export default class CreateOrders1603570898822 implements MigrationInterface {
           {
             name: 'delivery_date',
             type: 'timestamp',
+          },
+          {
+            name: 'status',
+            type: 'varchar',
           },
           {
             name: 'created_at',

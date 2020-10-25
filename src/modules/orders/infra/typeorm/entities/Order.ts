@@ -1,14 +1,18 @@
+import Customer from '@modules/customers/infra/typeorm/entities/Customer';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  DeleteDateColumn,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
 } from 'typeorm';
+import OrderItem from './OrderItem';
 
 @Entity('orders')
-class Customer {
+class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -21,6 +25,15 @@ class Customer {
 
   @Column({ name: 'customer_id' })
   customerId: string;
+
+  @ManyToOne(() => Customer, customer => customer.orders)
+  @JoinColumn({ name: 'customer_id' })
+  customer: Customer;
+
+  @OneToMany(() => OrderItem, orderItem => orderItem.order, {
+    cascade: true,
+  })
+  orderItems: OrderItem[];
 
   @Column({ name: 'payment_method' })
   paymentMethod: string;
@@ -50,4 +63,4 @@ class Customer {
   updated_at: Date;
 }
 
-export default Customer;
+export default Order;
