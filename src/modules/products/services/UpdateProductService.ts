@@ -1,56 +1,53 @@
 import { injectable, inject } from 'tsyringe';
-import Customer from '@modules/customers/infra/typeorm/entities/Customer';
+import Product from '@modules/products/infra/typeorm/entities/Product';
 import AppError from '@shared/infra/errors/AppError';
-import ICustomersRepository from '@modules/customers/repositories/ICustomersRepository';
+import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 
 interface IRequest {
   id: string;
   name: string;
-  email: string;
-  phoneNumber: string;
-  address: string;
-  city: string;
-  postalCode: string;
+  category: string;
+  unitPrice: number;
+  qtyDiscount: number;
+  discount: number;
   notes: string;
 }
 
 @injectable()
-class UpdateCustomerService {
+class UpdateProductService {
   constructor(
-    @inject('CustomersRepository')
-    private customersRepository: ICustomersRepository,
+    @inject('ProductsRepository')
+    private productsRepository: IProductsRepository,
   ) {}
 
   public async execute({
     id,
     name,
-    email,
-    phoneNumber,
-    address,
-    city,
-    postalCode,
+    category,
+    unitPrice,
+    qtyDiscount,
+    discount,
     notes,
-  }: IRequest): Promise<Customer> {
-    const customer = await this.customersRepository.findById(id);
+  }: IRequest): Promise<Product> {
+    const product = await this.productsRepository.findById(id);
 
-    if (!customer) {
-      throw new AppError('Customer does not exist.');
+    if (!product) {
+      throw new AppError('Product does not exist.');
     }
 
-    Object.assign(customer, {
+    Object.assign(product, {
       name,
-      email,
-      phoneNumber,
-      address,
-      city,
-      postalCode,
+      category,
+      unitPrice,
+      qtyDiscount,
+      discount,
       notes,
     });
 
-    const updatedCustomer = await this.customersRepository.save(customer);
+    const updatedProduct = await this.productsRepository.save(product);
 
-    return updatedCustomer;
+    return updatedProduct;
   }
 }
 
-export default UpdateCustomerService;
+export default UpdateProductService;

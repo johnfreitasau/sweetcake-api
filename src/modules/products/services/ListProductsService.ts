@@ -1,38 +1,36 @@
 import { injectable, inject } from 'tsyringe';
 
-import ICustomersRepository from '@modules/customers/repositories/ICustomersRepository';
-import Customer from '@modules/customers/infra/typeorm/entities/Customer';
+import IProductsRepository from '@modules/products/repositories/IProductsRepository';
+import Product from '@modules/products/infra/typeorm/entities/Product';
 
 interface IRequest {
-  deleted: boolean;
   page: number;
   name: string;
 }
 
 interface IResponse {
-  customers: Customer[];
+  products: Product[];
   count: number;
 }
 
 @injectable()
-class ListCustomersService {
+class ListProductsService {
   constructor(
-    @inject('CustomersRepository')
-    private customersRepository: ICustomersRepository,
+    @inject('ProductsRepository')
+    private productsRepository: IProductsRepository,
   ) {}
 
-  public async execute({ deleted, page, name }: IRequest): Promise<IResponse> {
+  public async execute({ page, name }: IRequest): Promise<IResponse> {
     const {
-      customers,
+      products,
       count,
-    } = await this.customersRepository.findAllWithPaginationAndSearch({
-      deleted,
+    } = await this.productsRepository.findAllWithPaginationAndSearch({
       page,
       name,
     });
 
-    return { customers, count };
+    return { products, count };
   }
 }
 
-export default ListCustomersService;
+export default ListProductsService;

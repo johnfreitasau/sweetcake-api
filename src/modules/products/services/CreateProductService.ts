@@ -1,54 +1,49 @@
 import { injectable, inject } from 'tsyringe';
-import Customer from '@modules/customers/infra/typeorm/entities/Customer';
+import Product from '@modules/products/infra/typeorm/entities/Product';
 import AppError from '@shared/infra/errors/AppError';
-import ICustomersRepository from '@modules/customers/repositories/ICustomersRepository';
+import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 
 interface IRequest {
   name: string;
-  email: string;
-  phoneNumber: string;
-  address: string;
-  city: string;
-  postalCode: string;
+  category: string;
+  unitPrice: number;
+  qtyDiscount: number;
+  discount: number;
   notes: string;
 }
 
 @injectable()
-class CreateCustomerService {
+class CreateProductService {
   constructor(
-    @inject('CustomersRepository')
-    private customersRepository: ICustomersRepository,
+    @inject('ProductsRepository')
+    private productsRepository: IProductsRepository,
   ) {}
 
   public async execute({
     name,
-    email,
-    phoneNumber,
-    address,
-    city,
-    postalCode,
+    category,
+    unitPrice,
+    qtyDiscount,
+    discount,
     notes,
-  }: IRequest): Promise<Customer> {
-    const checkIfCustomerExists = await this.customersRepository.findByEmail(
-      email,
-    );
+  }: IRequest): Promise<Product> {
+    const checkIfProductExists = await this.productsRepository.findByName(name);
 
-    if (checkIfCustomerExists) {
-      throw new AppError('Email already exists.');
+    if (checkIfProductExists) {
+      throw new AppError('Product name already exists.');
     }
 
-    const customer = await this.customersRepository.create({
+    const product = await this.productsRepository.create({
       name,
-      email,
-      phoneNumber,
-      address,
-      city,
-      postalCode,
+      category,
+      unitPrice,
+      qtyDiscount,
+      discount,
       notes,
     });
 
-    return customer;
+    return product;
   }
 }
 
-export default CreateCustomerService;
+export default CreateProductService;

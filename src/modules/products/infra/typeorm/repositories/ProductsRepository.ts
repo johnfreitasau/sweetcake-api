@@ -44,7 +44,7 @@ export default class ProductsRepository implements IProductsRepository {
   }
 
   public async deleteById(id: string): Promise<void> {
-    await this.ormRepository.softDelete(id);
+    await this.ormRepository.delete(id);
   }
 
   public async findAllById(products: IFindProducts[]): Promise<Product[]> {

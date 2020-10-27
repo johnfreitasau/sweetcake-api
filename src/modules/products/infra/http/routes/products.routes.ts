@@ -16,10 +16,10 @@ productsRouter.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
-      category: Joi.string().email().required(),
-      unitPrice: Joi.number(),
-      qtyDiscount: Joi.number(),
-      discountty: Joi.number(),
+      category: Joi.string().required(),
+      unitPrice: Joi.number().required(),
+      qtyDiscount: Joi.number().optional(),
+      discount: Joi.number().optional(),
       notes: Joi.string().allow(''),
     },
   }),
@@ -33,10 +33,10 @@ productsRouter.put(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
-      category: Joi.string().email().required(),
-      unitPrice: Joi.number(),
-      qtyDiscount: Joi.number(),
-      discountty: Joi.number(),
+      category: Joi.string().required(),
+      unitPrice: Joi.number().required(),
+      qtyDiscount: Joi.number().optional(),
+      discount: Joi.number().optional(),
       notes: Joi.string().allow(''),
     },
   }),
