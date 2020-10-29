@@ -4,6 +4,7 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 // import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 // import uploadConfig from '@config/upload';
+import validateProductList from '../validators/ProductList';
 import ProductsController from '../controllers/ProductsController';
 
 const productsRouter = Router();
@@ -26,7 +27,7 @@ productsRouter.post(
   productsController.create,
 );
 
-productsRouter.get('/', productsController.index);
+productsRouter.get('/', validateProductList, productsController.index);
 
 productsRouter.put(
   '/:id',

@@ -5,6 +5,7 @@ import { celebrate, Segments, Joi } from 'celebrate';
 // import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 // import uploadConfig from '@config/upload';
 import CustomersController from '../controllers/CustomersController';
+import validateCustomerList from '../validators/CustomerList';
 
 const customersRouter = Router();
 // const upload = multer(uploadConfig.multer);
@@ -27,7 +28,7 @@ customersRouter.post(
   customersController.create,
 );
 
-customersRouter.get('/', customersController.index);
+customersRouter.get('/', validateCustomerList, customersController.index);
 
 customersRouter.put(
   '/:id',
