@@ -1,7 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 import IOrdersRepository from '../../../repositories/IOrdersRepository';
 import IFilterOptionsDTO from '../../../dtos/IFilterOptionsDTO';
-import ICreateOrdesDTO from '../../../dtos/ICreateOrdesDTO';
+import ICreateOrdesDTO from '../../../dtos/ICreateOrdersDTO';
 // import IFindAllWithPaginationAndSearchDTO from '../../../dtos/IFindAllWithPaginationAndSearchDTO';
 import Order from '../entities/Order';
 
@@ -52,7 +52,7 @@ export default class OrdersRepository implements IOrdersRepository {
     isPickup,
     deliveryFee,
     finalPrice,
-    status,
+    // status,
     deliveryDate,
     products,
   }: ICreateOrdesDTO): Promise<Order> {
@@ -63,7 +63,7 @@ export default class OrdersRepository implements IOrdersRepository {
       isPickup,
       deliveryFee,
       finalPrice,
-      status,
+      // status,
       deliveryDate,
       orderItems: products,
     });

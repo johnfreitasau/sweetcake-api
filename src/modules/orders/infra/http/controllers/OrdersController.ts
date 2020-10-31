@@ -1,105 +1,106 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { classToClass } from 'class-transformer';
 
-import CreateCustomerService from '@modules/customers/services/CreateCustomerService';
-import UpdateCustomerService from '@modules/customers/services/UpdateCustomerService';
-import ListCustomersService from '@modules/customers/services/ListCustomersService';
-import DeleteCustomerService from '@modules/customers/services/DeleteCustomerService';
+import CreateOrderService from '@modules/orders/services/CreateOrderService';
+// import UpdateCustomerService from '@modules/customers/services/UpdateCustomerService';
+// import ListCustomersService from '@modules/customers/services/ListCustomersService';
+// import DeleteCustomerService from '@modules/customers/services/DeleteCustomerService';
 
 export default class OrdersController {
   public async create(request: Request, response: Response): Promise<Response> {
     const {
-      name,
-      email,
-      phoneNumber,
-      address,
-      city,
-      postalCode,
-      notes,
+      customerId,
+      paymentMethod,
+      isPaid,
+      isPickup,
+      deliveryFee,
+      // status,
+      deliveryDate,
+      products,
     } = request.body;
 
-    const createCustomer = container.resolve(CreateCustomerService);
+    const createOrder = container.resolve(CreateOrderService);
 
-    const customer = await createCustomer.execute({
-      name,
-      email,
-      phoneNumber,
-      address,
-      city,
-      postalCode,
-      notes,
+    const order = await createOrder.execute({
+      customerId,
+      paymentMethod,
+      isPaid,
+      isPickup,
+      deliveryFee,
+      // status,
+      deliveryDate,
+      products,
     });
 
-    return response.json(classToClass(customer));
+    return response.json(order);
   }
 
-  public async update(request: Request, response: Response): Promise<Response> {
-    const {
-      name,
-      email,
-      phoneNumber,
-      address,
-      city,
-      postalCode,
-      notes,
-    } = request.body;
+  // public async update(request: Request, response: Response): Promise<Response> {
+  //   const {
+  //     name,
+  //     email,
+  //     phoneNumber,
+  //     address,
+  //     city,
+  //     postalCode,
+  //     notes,
+  //   } = request.body;
 
-    const updateCustomer = container.resolve(UpdateCustomerService);
+  //   const updateCustomer = container.resolve(UpdateCustomerService);
 
-    await updateCustomer.execute({
-      name,
-      email,
-      phoneNumber,
-      address,
-      city,
-      postalCode,
-      notes,
-      id: request.params.id,
-    });
-    return response.status(204).json();
-  }
+  //   await updateCustomer.execute({
+  //     name,
+  //     email,
+  //     phoneNumber,
+  //     address,
+  //     city,
+  //     postalCode,
+  //     notes,
+  //     id: request.params.id,
+  //   });
+  //   return response.status(204).json();
+  // }
 
-  public async index(request: Request, response: Response): Promise<Response> {
-    const { deleted, name, page } = request.query;
+  // public async index(request: Request, response: Response): Promise<Response> {
+  //   const { name, page } = request.query;
 
-    // console.log('deleted-controller:', deleted);
+  //   // console.log('deleted-controller:', deleted);
 
-    const listCustomers = container.resolve(ListCustomersService);
+  //   const listOrders = container.resolve(ListOrdersService);
 
-    const { customers, count } = await listCustomers.execute({
-      deleted: deleted === 'true',
-      name: String(name),
-      page: Number(page),
-    });
+  //   const { orders, count } = await listOrders.execute({
+  //     // deleted: deleted === 'true',
+  //     name: String(name),
+  //     page: Number(page),
+  //   });
 
-    response.header('X-Total-Count', `${count}`);
-    response.header('Access-Control-Expose-Headers', 'X-Total-Count');
+  //   response.header('X-Total-Count', `${count}`);
+  //   response.header('Access-Control-Expose-Headers', 'X-Total-Count');
 
-    return response.json(customers);
-  }
+  //   return response.json(orders);
+  // }
 
-  public async delete(request: Request, response: Response): Promise<Response> {
-    const { id } = request.params;
+  // public async delete(request: Request, response: Response): Promise<Response> {
+  //   const { id } = request.params;
 
-    const deleteCustomer = container.resolve(DeleteCustomerService);
+  //   const deleteCustomer = container.resolve(DeleteCustomerService);
 
-    await deleteCustomer.execute({ id });
+  //   await deleteCustomer.execute({ id });
 
-    return response.status(204).json();
-  }
+  //   return response.status(204).json();
+  // }
 
-  public async show(request: Request, response: Response): Promise<Response> {
-    const contract_id = request.params.id;
+  // public async show(request: Request, response: Response): Promise<Response> {
+  //   const contract_id = request.params.id;
 
-    const listContractWithAllRelations = container.resolve(
-      ListOrderWithAllRelationsService,
-    );
+  //   const listContractWithAllRelations = container.resolve(
+  //     ListOrderWithAllRelationsService,
+  //   );
 
-    const contract = await listOrderWithAllRelations.execute({
-      contract_id,
-    });
+  //   const contract = await listOrderWithAllRelations.execute({
+  //     contract_id,
+  //   });
 
-    return response.json(contract);
-  }
+  //   return response.json(contract);
+  // }
 }

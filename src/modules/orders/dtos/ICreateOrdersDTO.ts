@@ -1,7 +1,7 @@
 import Customer from '@modules/customers/infra/typeorm/entities/Customer';
 
 export interface IProducts {
-  materialId: string;
+  productId: string;
   quantity: number;
   qtyPrice: number;
   // name: string;
@@ -18,8 +18,8 @@ export default interface ICreateOrdersDTO {
   isPaid: boolean;
   isPickup: boolean;
   deliveryFee: number;
-  finalPrice: number;
-  status: string;
+  finalPrice?: number;
+  status?: string;
   deliveryDate: Date;
   products: IProducts[];
 }
