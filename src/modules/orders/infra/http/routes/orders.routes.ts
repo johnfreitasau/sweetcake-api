@@ -4,14 +4,14 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 // import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 // import uploadConfig from '@config/upload';
-import CustomersController from '../controllers/CustomersController';
+import OrdersController from '../controllers/OrdersController';
 
-const customersRouter = Router();
+const ordersRouter = Router();
 // const upload = multer(uploadConfig.multer);
 
-const customersController = new CustomersController();
+const ordersController = new OrdersController();
 
-customersRouter.post(
+ordersRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
@@ -24,12 +24,14 @@ customersRouter.post(
       notes: Joi.string(),
     },
   }),
-  customersController.create,
+  ordersController.create,
 );
 
-customersRouter.get('/', customersController.index);
+ordersRouter.get('/', ordersController.index);
 
-customersRouter.put(
+ordersRouter.get('/:id', ordersController.show);
+
+ordersRouter.put(
   '/:id',
   celebrate({
     [Segments.BODY]: {
@@ -42,9 +44,9 @@ customersRouter.put(
       notes: Joi.string().allow(''),
     },
   }),
-  customersController.update,
+  ordersController.update,
 );
 
-customersRouter.delete('/:id', customersController.delete);
+ordersRouter.delete('/:id', ordersController.delete);
 
-export default customersRouter;
+export default ordersRouter;

@@ -1,4 +1,3 @@
-import Customer from '@modules/customers/infra/typeorm/entities/Customer';
 import {
   Entity,
   Column,
@@ -9,6 +8,7 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
+import Customer from '@modules/customers/infra/typeorm/entities/Customer';
 import OrderItem from './OrderItem';
 
 @Entity('orders')

@@ -7,7 +7,7 @@ import UpdateCustomerService from '@modules/customers/services/UpdateCustomerSer
 import ListCustomersService from '@modules/customers/services/ListCustomersService';
 import DeleteCustomerService from '@modules/customers/services/DeleteCustomerService';
 
-export default class CustomersController {
+export default class OrdersController {
   public async create(request: Request, response: Response): Promise<Response> {
     const {
       name,
@@ -87,5 +87,19 @@ export default class CustomersController {
     await deleteCustomer.execute({ id });
 
     return response.status(204).json();
+  }
+
+  public async show(request: Request, response: Response): Promise<Response> {
+    const contract_id = request.params.id;
+
+    const listContractWithAllRelations = container.resolve(
+      ListOrderWithAllRelationsService,
+    );
+
+    const contract = await listOrderWithAllRelations.execute({
+      contract_id,
+    });
+
+    return response.json(contract);
   }
 }
