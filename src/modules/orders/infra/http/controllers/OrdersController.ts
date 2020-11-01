@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 
 import CreateOrderService from '@modules/orders/services/CreateOrderService';
 // import UpdateCustomerService from '@modules/customers/services/UpdateCustomerService';
-// import ListCustomersService from '@modules/customers/services/ListCustomersService';
+import ListAllOrdersWithFilterService from '@modules/orders/services/ListAllOrdersWithFilterService';
 // import DeleteCustomerService from '@modules/customers/services/DeleteCustomerService';
 
 export default class OrdersController {
@@ -61,24 +61,26 @@ export default class OrdersController {
   //   return response.status(204).json();
   // }
 
-  // public async index(request: Request, response: Response): Promise<Response> {
-  //   const { name, page } = request.query;
+  public async index(request: Request, response: Response): Promise<Response> {
+    const { name, page, deleted } = request.query;
 
-  //   // console.log('deleted-controller:', deleted);
+    // console.log('deleted-controller:', deleted);
 
-  //   const listOrders = container.resolve(ListOrdersService);
+    const listOrdersWithFilter = container.resolve(
+      ListAllOrdersWithFilterService,
+    );
 
-  //   const { orders, count } = await listOrders.execute({
-  //     // deleted: deleted === 'true',
-  //     name: String(name),
-  //     page: Number(page),
-  //   });
+    const { orders, count } = await listOrdersWithFilter.execute({
+      name: String(name),
+      page: Number(page),
+      deleted: Boolean(deleted),
+    });
 
-  //   response.header('X-Total-Count', `${count}`);
-  //   response.header('Access-Control-Expose-Headers', 'X-Total-Count');
+    response.header('X-Total-Count', `${count}`);
+    response.header('Access-Control-Expose-Headers', 'X-Total-Count');
 
-  //   return response.json(orders);
-  // }
+    return response.json(orders);
+  }
 
   // public async delete(request: Request, response: Response): Promise<Response> {
   //   const { id } = request.params;

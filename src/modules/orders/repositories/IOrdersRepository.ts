@@ -1,5 +1,5 @@
 import Order from '../infra/typeorm/entities/Order';
-import ICreateOrdersDTO from '../dtos/ICreateOrdesDTO';
+import ICreateOrdersDTO from '../dtos/ICreateOrdersDTO';
 import IFilterOptionsDTO from '../dtos/IFilterOptionsDTO';
 
 interface IFindAllandCountResponse {

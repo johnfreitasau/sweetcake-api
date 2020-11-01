@@ -1,6 +1,5 @@
 import { Router } from 'express';
 // import multer from 'multer';
-import { celebrate, Segments, Joi } from 'celebrate';
 
 import validateOrderCreate from '../validators/OrderCreate';
 // import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
@@ -14,7 +13,7 @@ const ordersController = new OrdersController();
 
 ordersRouter.post('/', validateOrderCreate, ordersController.create);
 
-// ordersRouter.get('/', ordersController.index);
+ordersRouter.get('/', ordersController.index);
 
 // ordersRouter.get('/:id', ordersController.show);
 

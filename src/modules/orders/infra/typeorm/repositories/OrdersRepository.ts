@@ -20,21 +20,23 @@ export default class OrdersRepository implements IOrdersRepository {
   public async findAllWithFilterOptions({
     page,
     name,
-    deleted,
-  }: IFilterOptionsDTO): Promise<IFindAllandCountResponse> {
-    const query = await this.ormRepository
+  }: // deleted,
+  IFilterOptionsDTO): Promise<IFindAllandCountResponse> {
+    const query = this.ormRepository
       .createQueryBuilder('orders')
       .innerJoinAndSelect('orders.customer', 'customer')
-      .where(`orders.deliveryDate' ${deleted ? 'IS NOT' : 'IS'} NULL`)
+      // .where(`orders.deliveryDate' ${deleted ? 'IS NOT' : 'IS'} NULL`)
       .take(7)
       .skip((page - 1) * 7)
       .orderBy('orders.number', 'DESC');
 
-    if (name) {
-      query.andWhere('customer.name ILIKE :name', { name: `%${name}` });
-    }
+    // if (name) {
+    //   query.andWhere('customer.name ILIKE :name', { name: `%${name}%` });
+    // }
 
     const [orders, count] = await query.getManyAndCount();
+
+    console.log(orders);
 
     return { orders, count };
   }
@@ -52,7 +54,7 @@ export default class OrdersRepository implements IOrdersRepository {
     isPickup,
     deliveryFee,
     finalPrice,
-    // status,
+    status,
     deliveryDate,
     products,
   }: ICreateOrdesDTO): Promise<Order> {
@@ -63,7 +65,7 @@ export default class OrdersRepository implements IOrdersRepository {
       isPickup,
       deliveryFee,
       finalPrice,
-      // status,
+      status,
       deliveryDate,
       orderItems: products,
     });

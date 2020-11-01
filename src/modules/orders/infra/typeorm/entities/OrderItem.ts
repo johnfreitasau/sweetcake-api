@@ -29,7 +29,7 @@ class OrderItem {
   @JoinColumn({ name: 'product_id' })
   product: Product;
 
-  @Column({ name: 'int' })
+  @Column()
   quantity: number;
 
   @Column({ name: 'qty_price' })
