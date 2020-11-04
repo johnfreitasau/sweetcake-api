@@ -6,7 +6,7 @@ export default celebrate({
     paymentMethod: Joi.string().default('Cash'),
     isPaid: Joi.boolean(),
     isPickup: Joi.boolean(),
-    deliveryFee: Joi.string(),
+    deliveryFee: Joi.number(),
     deliveryDate: Joi.date(),
     products: Joi.array()
       .items(
@@ -18,12 +18,5 @@ export default celebrate({
         }),
       )
       .required(),
-
-    // email: Joi.string().email().required(),
-    // phoneNumber: Joi.string(),
-    // address: Joi.string(),
-    // city: Joi.string(),
-    // postalCode: Joi.string(),
-    // notes: Joi.string(),
   },
 });

@@ -1,27 +1,27 @@
 import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/infra/errors/AppError';
-import ICustomersRepository from '@modules/customers/repositories/ICustomersRepository';
+import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
 
 interface IRequest {
   id: string;
 }
 
 @injectable()
-class DeleteCustomerService {
+class DeleteOrderService {
   constructor(
-    @inject('CustomersRepository')
-    private customersRepository: ICustomersRepository,
+    @inject('OrdersRepository')
+    private ordersRepository: IOrdersRepository,
   ) {}
 
   public async execute({ id }: IRequest): Promise<void> {
-    const checkIfCustomerExists = await this.customersRepository.findById(id);
+    const checkIfOrderExists = await this.ordersRepository.findById(id);
 
-    if (!checkIfCustomerExists) {
-      throw new AppError('Customer does not exist.');
+    if (!checkIfOrderExists) {
+      throw new AppError('Order does not exist.');
     }
 
-    await this.customersRepository.deleteById(id);
+    await this.ordersRepository.deleteById(id);
   }
 }
 
-export default DeleteCustomerService;
+export default DeleteOrderService;

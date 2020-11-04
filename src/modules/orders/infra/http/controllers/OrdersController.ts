@@ -4,7 +4,7 @@ import { container } from 'tsyringe';
 import CreateOrderService from '@modules/orders/services/CreateOrderService';
 // import UpdateCustomerService from '@modules/customers/services/UpdateCustomerService';
 import ListAllOrdersWithFilterService from '@modules/orders/services/ListAllOrdersWithFilterService';
-// import DeleteCustomerService from '@modules/customers/services/DeleteCustomerService';
+import DeleteOrderService from '@modules/orders/services/DeleteOrderService';
 
 export default class OrdersController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -35,6 +35,27 @@ export default class OrdersController {
     return response.json(order);
   }
 
+  public async index(request: Request, response: Response): Promise<Response> {
+    const { name, page, deleted } = request.query;
+
+    // console.log('deleted-controller:', deleted);
+
+    const listOrdersWithFilter = container.resolve(
+      ListAllOrdersWithFilterService,
+    );
+
+    const { orders, count } = await listOrdersWithFilter.execute({
+      name: String(name),
+      page: Number(page),
+      deleted: Boolean(deleted),
+    });
+
+    response.header('X-Total-Count', `${count}`);
+    response.header('Access-Control-Expose-Headers', 'X-Total-Count');
+
+    return response.json(orders);
+  }
+
   // public async update(request: Request, response: Response): Promise<Response> {
   //   const {
   //     name,
@@ -61,36 +82,15 @@ export default class OrdersController {
   //   return response.status(204).json();
   // }
 
-  public async index(request: Request, response: Response): Promise<Response> {
-    const { name, page, deleted } = request.query;
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
 
-    // console.log('deleted-controller:', deleted);
+    const deleteOrder = container.resolve(DeleteOrderService);
 
-    const listOrdersWithFilter = container.resolve(
-      ListAllOrdersWithFilterService,
-    );
+    await deleteOrder.execute({ id });
 
-    const { orders, count } = await listOrdersWithFilter.execute({
-      name: String(name),
-      page: Number(page),
-      deleted: Boolean(deleted),
-    });
-
-    response.header('X-Total-Count', `${count}`);
-    response.header('Access-Control-Expose-Headers', 'X-Total-Count');
-
-    return response.json(orders);
+    return response.status(204).json();
   }
-
-  // public async delete(request: Request, response: Response): Promise<Response> {
-  //   const { id } = request.params;
-
-  //   const deleteCustomer = container.resolve(DeleteCustomerService);
-
-  //   await deleteCustomer.execute({ id });
-
-  //   return response.status(204).json();
-  // }
 
   // public async show(request: Request, response: Response): Promise<Response> {
   //   const contract_id = request.params.id;

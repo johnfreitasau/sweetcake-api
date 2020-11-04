@@ -80,7 +80,7 @@ export default class OrdersRepository implements IOrdersRepository {
   }
 
   public async deleteById(id: string): Promise<void> {
-    await this.ormRepository.softDelete(id);
+    await this.ormRepository.delete(id);
   }
 
   public async findByIdWithAllRelations(

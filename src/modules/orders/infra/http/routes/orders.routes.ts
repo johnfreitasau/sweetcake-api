@@ -1,13 +1,10 @@
 import { Router } from 'express';
-// import multer from 'multer';
 
 import validateOrderCreate from '../validators/OrderCreate';
 // import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
-// import uploadConfig from '@config/upload';
 import OrdersController from '../controllers/OrdersController';
 
 const ordersRouter = Router();
-// const upload = multer(uploadConfig.multer);
 
 const ordersController = new OrdersController();
 
@@ -33,6 +30,6 @@ ordersRouter.get('/', ordersController.index);
 //   ordersController.update,
 // );
 
-// ordersRouter.delete('/:id', ordersController.delete);
+ordersRouter.delete('/:id', ordersController.delete);
 
 export default ordersRouter;
