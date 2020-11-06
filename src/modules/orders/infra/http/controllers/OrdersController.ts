@@ -4,6 +4,7 @@ import { container } from 'tsyringe';
 import CreateOrderService from '@modules/orders/services/CreateOrderService';
 // import UpdateCustomerService from '@modules/customers/services/UpdateCustomerService';
 import ListAllOrdersWithFilterService from '@modules/orders/services/ListAllOrdersWithFilterService';
+import ListOrderWithAllRelationsService from '@modules/orders/services/ListOrderWithAllRelationsService';
 import DeleteOrderService from '@modules/orders/services/DeleteOrderService';
 
 export default class OrdersController {
@@ -56,32 +57,6 @@ export default class OrdersController {
     return response.json(orders);
   }
 
-  // public async update(request: Request, response: Response): Promise<Response> {
-  //   const {
-  //     name,
-  //     email,
-  //     phoneNumber,
-  //     address,
-  //     city,
-  //     postalCode,
-  //     notes,
-  //   } = request.body;
-
-  //   const updateCustomer = container.resolve(UpdateCustomerService);
-
-  //   await updateCustomer.execute({
-  //     name,
-  //     email,
-  //     phoneNumber,
-  //     address,
-  //     city,
-  //     postalCode,
-  //     notes,
-  //     id: request.params.id,
-  //   });
-  //   return response.status(204).json();
-  // }
-
   public async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
@@ -92,17 +67,33 @@ export default class OrdersController {
     return response.status(204).json();
   }
 
-  // public async show(request: Request, response: Response): Promise<Response> {
-  //   const contract_id = request.params.id;
+  public async show(request: Request, response: Response): Promise<Response> {
+    const order_id = request.params.id;
 
-  //   const listContractWithAllRelations = container.resolve(
-  //     ListOrderWithAllRelationsService,
-  //   );
+    const listOrderWithAllRelations = container.resolve(
+      ListOrderWithAllRelationsService,
+    );
 
-  //   const contract = await listOrderWithAllRelations.execute({
-  //     contract_id,
-  //   });
+    const order = await listOrderWithAllRelations.execute({
+      order_id,
+    });
 
-  //   return response.json(contract);
-  // }
+    console.log('ORDER CONTROLLER:', order);
+
+    return response.json(order);
+  }
+
+  public async update(req: Request, res: Response): Promise<Response> {
+    // const { collect_price } = req.body;
+    const orderId = req.params.id;
+
+    const finishContract = container.resolve(CompleteOrderService);
+
+    const order = await finishContract.execute({
+      orderId,
+      // collect_price,
+    });
+
+    return res.json(order);
+  }
 }

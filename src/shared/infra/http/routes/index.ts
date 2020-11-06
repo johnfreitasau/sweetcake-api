@@ -9,10 +9,10 @@ import ordersRouter from '@modules/orders/infra/http/routes/orders.routes';
 
 const routes = Router();
 
-routes.use('/sessions', sessionsRouter);
 routes.use('/users', usersRouter);
-routes.use('/password', passwordRouter);
+routes.use('/sessions', sessionsRouter);
 routes.use('/profile', profileRouter);
+routes.use('/password', passwordRouter);
 routes.use('/customers', customersRouter);
 routes.use('/products', productsRouter);
 routes.use('/orders', ordersRouter);

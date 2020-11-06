@@ -19,8 +19,8 @@ export default class OrdersRepository implements IOrdersRepository {
 
   public async findAllWithFilterOptions({
     page,
-    name,
-  }: // deleted,
+  }: // name,
+  // deleted,
   IFilterOptionsDTO): Promise<IFindAllandCountResponse> {
     const query = this.ormRepository
       .createQueryBuilder('orders')
@@ -35,8 +35,6 @@ export default class OrdersRepository implements IOrdersRepository {
     // }
 
     const [orders, count] = await query.getManyAndCount();
-
-    console.log(orders);
 
     return { orders, count };
   }
@@ -87,7 +85,7 @@ export default class OrdersRepository implements IOrdersRepository {
     id: string,
   ): Promise<Order | undefined> {
     const order = await this.ormRepository.findOne(id, {
-      relations: ['customer', 'contractItems', 'contractItems.product'],
+      relations: ['customer', 'orderItems', 'orderItems.product'],
     });
 
     return order;

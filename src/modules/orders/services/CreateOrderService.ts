@@ -79,8 +79,6 @@ class CreateOrderService {
       return increment + orderItem.qtyPrice;
     }, 0);
 
-    console.log('Creating order...');
-
     const order = await this.ordersRepository.create({
       customer,
       paymentMethod,
@@ -92,8 +90,6 @@ class CreateOrderService {
       deliveryDate,
       products: orderItems,
     });
-
-    console.log('Order created', order);
 
     return order;
   }
