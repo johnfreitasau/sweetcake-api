@@ -40,6 +40,12 @@ class CompleteOrderService {
 
     const finalPrice = order.finalPrice + order.deliveryFee;
 
+    console.log('order.finalPrice:', order.finalPrice);
+
+    console.log('order.deliveryFee:', order.deliveryFee);
+
+    console.log('finalPrice from Services:', finalPrice);
+
     Object.assign(order, {
       // collect_price,
       finalPrice,

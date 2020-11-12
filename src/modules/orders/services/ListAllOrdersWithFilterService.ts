@@ -30,10 +30,6 @@ class ListAllOrdersWithFilterService {
       page,
       name,
     });
-
-    console.log('Retuned orders and count');
-    console.log(orders);
-    console.log(count);
     return { orders, count };
   }
 }

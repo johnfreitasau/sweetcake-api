@@ -75,9 +75,11 @@ class CreateOrderService {
       };
     });
 
-    const finalPrice = orderItems.reduce((increment, orderItem) => {
+    let finalPrice = orderItems.reduce((increment, orderItem) => {
       return increment + orderItem.qtyPrice;
     }, 0);
+
+    finalPrice += deliveryFee;
 
     const order = await this.ordersRepository.create({
       customer,
