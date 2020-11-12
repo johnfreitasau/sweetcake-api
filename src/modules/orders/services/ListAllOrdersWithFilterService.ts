@@ -21,16 +21,19 @@ class ListAllOrdersWithFilterService {
     private ordersRepository: IOrdersRepository,
   ) {}
 
-  public async execute({ deleted, page, name }: IRequest): Promise<IResponse> {
+  public async execute({ page, name }: IRequest): Promise<IResponse> {
     const {
       orders,
       count,
     } = await this.ordersRepository.findAllWithFilterOptions({
-      deleted,
+      // deleted,
       page,
       name,
     });
 
+    console.log('Retuned orders and count');
+    console.log(orders);
+    console.log(count);
     return { orders, count };
   }
 }

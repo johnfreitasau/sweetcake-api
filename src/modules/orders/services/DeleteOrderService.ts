@@ -20,7 +20,9 @@ class DeleteOrderService {
       throw new AppError('Order does not exist.');
     }
 
+    console.log('Order is going to be deleted:', id);
     await this.ordersRepository.deleteById(id);
+    console.log('Order deleted');
   }
 }
 

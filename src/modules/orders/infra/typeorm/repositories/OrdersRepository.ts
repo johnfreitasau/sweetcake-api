@@ -19,8 +19,8 @@ export default class OrdersRepository implements IOrdersRepository {
 
   public async findAllWithFilterOptions({
     page,
-  }: // name,
-  // deleted,
+    name,
+  }: // deleted,
   IFilterOptionsDTO): Promise<IFindAllandCountResponse> {
     const query = this.ormRepository
       .createQueryBuilder('orders')
@@ -30,9 +30,11 @@ export default class OrdersRepository implements IOrdersRepository {
       .skip((page - 1) * 7)
       .orderBy('orders.number', 'DESC');
 
-    // if (name) {
-    //   query.andWhere('customer.name ILIKE :name', { name: `%${name}%` });
-    // }
+    if (name !== 'undefined') {
+      query.where('customer.name ILIKE :name', {
+        name: `%${name}%`,
+      });
+    }
 
     const [orders, count] = await query.getManyAndCount();
 

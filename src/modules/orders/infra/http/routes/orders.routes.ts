@@ -15,7 +15,7 @@ ordersRouter.get('/', ordersController.index);
 
 ordersRouter.get('/:id', ordersController.show);
 
-ordersRouter.put('/:id/finish', ordersController.update);
+ordersRouter.put('/:id/close', ordersController.update);
 
 ordersRouter.delete('/:id', ordersController.delete);
 

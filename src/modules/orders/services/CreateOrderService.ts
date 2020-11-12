@@ -86,7 +86,7 @@ class CreateOrderService {
       isPickup,
       deliveryFee,
       finalPrice,
-      status: 'To be started',
+      status: 'Open',
       deliveryDate,
       products: orderItems,
     });

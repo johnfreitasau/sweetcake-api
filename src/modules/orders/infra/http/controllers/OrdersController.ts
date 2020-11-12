@@ -6,6 +6,7 @@ import CreateOrderService from '@modules/orders/services/CreateOrderService';
 import ListAllOrdersWithFilterService from '@modules/orders/services/ListAllOrdersWithFilterService';
 import ListOrderWithAllRelationsService from '@modules/orders/services/ListOrderWithAllRelationsService';
 import DeleteOrderService from '@modules/orders/services/DeleteOrderService';
+import CloseOrderService from '@modules/orders/services/CloseOrderService';
 
 export default class OrdersController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -38,8 +39,6 @@ export default class OrdersController {
 
   public async index(request: Request, response: Response): Promise<Response> {
     const { name, page, deleted } = request.query;
-
-    // console.log('deleted-controller:', deleted);
 
     const listOrdersWithFilter = container.resolve(
       ListAllOrdersWithFilterService,
@@ -78,20 +77,16 @@ export default class OrdersController {
       order_id,
     });
 
-    console.log('ORDER CONTROLLER:', order);
-
     return response.json(order);
   }
 
   public async update(req: Request, res: Response): Promise<Response> {
-    // const { collect_price } = req.body;
     const orderId = req.params.id;
 
-    const finishContract = container.resolve(CompleteOrderService);
+    const closeOrder = container.resolve(CloseOrderService);
 
-    const order = await finishContract.execute({
+    const order = await closeOrder.execute({
       orderId,
-      // collect_price,
     });
 
     return res.json(order);

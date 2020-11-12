@@ -76,8 +76,8 @@ export default class CustomersRepository implements ICustomersRepository {
       .skip((page - 1) * 7)
       .orderBy('customers.created_at', 'DESC');
 
-    if (name !== 'undefined') {
-      query.where('name ILIKE :name', { name: `%${name}%` });
+    if (name) {
+      query.where('name LIKE :name', { name: `%${name}%` });
     }
 
     if (deleted) {

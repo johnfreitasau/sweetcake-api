@@ -44,6 +44,7 @@ class CompleteOrderService {
       // collect_price,
       finalPrice,
       collect_at: new Date(),
+      status: 'Closed',
     });
 
     await this.ordersRepository.save(order);
