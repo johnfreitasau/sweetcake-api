@@ -15,6 +15,9 @@ import NotificationsRepository from '@modules/notifications/infra/typeorm/reposi
 import ICustomersRepository from '@modules/customers/repositories/ICustomersRepository';
 import CustomersRepository from '@modules/customers/infra/typeorm/repositories/CustomersRepository';
 
+import ICategoriesRepository from '@modules/categories/repositories/ICategoriesRepository';
+import CategoriesRepository from '@modules/categories/infra/typeorm/repositories/CategoriesRepository';
+
 import IProductsRepository from '@modules/products/repositories/IProductsRepository';
 import ProductsRepository from '@modules/products/infra/typeorm/repositories/ProductsRepository';
 
@@ -39,6 +42,11 @@ container.registerSingleton<INotificationsRepository>(
 container.registerSingleton<ICustomersRepository>(
   'CustomersRepository',
   CustomersRepository,
+);
+
+container.registerSingleton<ICategoriesRepository>(
+  'CategoriesRepository',
+  CategoriesRepository,
 );
 
 container.registerSingleton<IProductsRepository>(
