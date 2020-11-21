@@ -27,8 +27,8 @@ export default class ProductsRepository implements IProductsRepository {
 
     const query = this.ormRepository
       .createQueryBuilder('products')
-      .take(7)
-      .skip((page - 1) * 7)
+      .take(10)
+      .skip((page - 1) * 10)
       .orderBy('products.created_at', 'DESC');
 
     if (name !== 'undefined') {
@@ -69,18 +69,14 @@ export default class ProductsRepository implements IProductsRepository {
 
   public async create({
     name,
-    category,
+    categoryId,
     unitPrice,
-    qtyDiscount,
-    discount,
     notes,
   }: ICreateProductDTO): Promise<Product> {
     const product = this.ormRepository.create({
       name,
-      category,
+      categoryId,
       unitPrice,
-      qtyDiscount,
-      discount,
       notes,
     });
 

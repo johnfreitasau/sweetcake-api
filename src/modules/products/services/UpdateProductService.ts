@@ -6,10 +6,8 @@ import IProductsRepository from '@modules/products/repositories/IProductsReposit
 interface IRequest {
   id: string;
   name: string;
-  category: string;
+  categoryId: string;
   unitPrice: number;
-  qtyDiscount: number;
-  discount: number;
   notes: string;
 }
 
@@ -23,10 +21,8 @@ class UpdateProductService {
   public async execute({
     id,
     name,
-    category,
+    categoryId,
     unitPrice,
-    qtyDiscount,
-    discount,
     notes,
   }: IRequest): Promise<Product> {
     const product = await this.productsRepository.findById(id);
@@ -37,10 +33,8 @@ class UpdateProductService {
 
     Object.assign(product, {
       name,
-      category,
+      categoryId,
       unitPrice,
-      qtyDiscount,
-      discount,
       notes,
     });
 

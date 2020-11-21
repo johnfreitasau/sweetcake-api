@@ -28,16 +28,6 @@ export default class CreateProducts1603569752921 implements MigrationInterface {
             isNullable: true,
           },
           {
-            name: 'qty_discount',
-            type: 'integer',
-            isNullable: true,
-          },
-          {
-            name: 'discount',
-            type: 'float',
-            isNullable: true,
-          },
-          {
             name: 'notes',
             type: 'varchar',
             isNullable: true,

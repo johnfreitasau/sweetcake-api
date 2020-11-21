@@ -5,10 +5,8 @@ import IProductsRepository from '@modules/products/repositories/IProductsReposit
 
 interface IRequest {
   name: string;
-  category: string;
+  categoryId: string;
   unitPrice: number;
-  qtyDiscount: number;
-  discount: number;
   notes: string;
 }
 
@@ -21,10 +19,8 @@ class CreateProductService {
 
   public async execute({
     name,
-    category,
+    categoryId,
     unitPrice,
-    qtyDiscount,
-    discount,
     notes,
   }: IRequest): Promise<Product> {
     const checkIfProductExists = await this.productsRepository.findByName(name);
@@ -35,10 +31,8 @@ class CreateProductService {
 
     const product = await this.productsRepository.create({
       name,
-      category,
+      categoryId,
       unitPrice,
-      qtyDiscount,
-      discount,
       notes,
     });
 

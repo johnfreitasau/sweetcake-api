@@ -26,8 +26,8 @@ export default class OrdersRepository implements IOrdersRepository {
       .createQueryBuilder('orders')
       .innerJoinAndSelect('orders.customer', 'customer')
       // .where(`orders.deliveryDate' ${deleted ? 'IS NOT' : 'IS'} NULL`)
-      .take(7)
-      .skip((page - 1) * 7)
+      .take(10)
+      .skip((page - 1) * 10)
       .orderBy('orders.number', 'DESC');
 
     if (name !== 'undefined') {
@@ -92,36 +92,4 @@ export default class OrdersRepository implements IOrdersRepository {
 
     return order;
   }
-  // public async findAll({ deleted }: IFindAllDTO): Promise<Order[]> {
-  //   const customers = await this.ormRepository.find({ withDeleted: deleted });
-
-  //   return customers;
-  // }
-
-  // public async findAllWithPaginationAndSearch(
-  //   data: IFindAllWithPaginationAndSearchDTO,
-  // ): Promise<IResponseFindAllWithPaginationAndSearch> {
-  //   const { deleted, name, page } = data;
-
-  //   const query = this.ormRepository
-  //     .createQueryBuilder('customers')
-  //     .take(7)
-  //     .skip((page - 1) * 7)
-  //     .orderBy('customers.created_at', 'DESC');
-
-  //   if (name) {
-  //     query.andWhere('name ILIKE :name', { name: `%${name}%` });
-  //   }
-
-  //   if (deleted) {
-  //     query.withDeleted().andWhere('deleted_at IS NOT NULL');
-  //   }
-
-  //   const [customers, count] = await query.getManyAndCount();
-
-  //   return {
-  //     customers,
-  //     count,
-  //   };
-  // }
 }

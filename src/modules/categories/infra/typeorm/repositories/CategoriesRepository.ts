@@ -27,8 +27,8 @@ export default class CategoriesRepository implements ICategoriesRepository {
 
     const query = this.ormRepository
       .createQueryBuilder('categories')
-      .take(7)
-      .skip((page - 1) * 7)
+      .take(10)
+      .skip((page - 1) * 10)
       .orderBy('categories.created_at', 'DESC');
 
     if (name !== 'undefined') {

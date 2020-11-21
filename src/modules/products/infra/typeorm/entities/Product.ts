@@ -1,10 +1,12 @@
+import Category from '@modules/categories/infra/typeorm/entities/Category';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  // DeleteDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity('products')
@@ -15,17 +17,15 @@ class Product {
   @Column()
   name: string;
 
-  @Column()
-  category: string;
+  @Column({ name: 'category_id' })
+  categoryId: string;
+
+  @ManyToOne(() => Category, category => category.products, { cascade: true })
+  @JoinColumn({ name: 'category_id' })
+  category: Category;
 
   @Column({ name: 'unit_price' })
   unitPrice: number;
-
-  @Column({ name: 'qty_discount' })
-  qtyDiscount: number;
-
-  @Column()
-  discount: number;
 
   @Column()
   notes: string;

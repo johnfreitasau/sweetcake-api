@@ -72,8 +72,8 @@ export default class CustomersRepository implements ICustomersRepository {
 
     const query = this.ormRepository
       .createQueryBuilder('customers')
-      .take(7)
-      .skip((page - 1) * 7)
+      .take(10)
+      .skip((page - 1) * 10)
       .orderBy('customers.created_at', 'DESC');
 
     if (name) {

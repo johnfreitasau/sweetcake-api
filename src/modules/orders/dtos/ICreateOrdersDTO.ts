@@ -7,8 +7,6 @@ export interface IProducts {
   // name: string;
   // category: string;
   // unitPrice: number;
-  // qtyDiscount: number;
-  // discount: number;
   // notes: string;
 }
 

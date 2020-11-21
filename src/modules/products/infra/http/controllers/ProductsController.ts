@@ -9,23 +9,14 @@ import DeleteProductService from '@modules/products/services/DeleteProductServic
 
 export default class ProductsController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const {
-      name,
-      category,
-      unitPrice,
-      qtyDiscount,
-      discount,
-      notes,
-    } = request.body;
+    const { name, categoryId, unitPrice, notes } = request.body;
 
     const createProduct = container.resolve(CreateProductService);
 
     const product = await createProduct.execute({
       name,
-      category,
+      categoryId,
       unitPrice,
-      qtyDiscount,
-      discount,
       notes,
     });
 
@@ -33,23 +24,14 @@ export default class ProductsController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const {
-      name,
-      category,
-      unitPrice,
-      qtyDiscount,
-      discount,
-      notes,
-    } = request.body;
+    const { name, categoryId, unitPrice, notes } = request.body;
 
     const updateProduct = container.resolve(UpdateProductService);
 
     await updateProduct.execute({
       name,
-      category,
+      categoryId,
       unitPrice,
-      qtyDiscount,
-      discount,
       notes,
       id: request.params.id,
     });

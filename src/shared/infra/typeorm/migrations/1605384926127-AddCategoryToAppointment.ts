@@ -8,11 +8,14 @@ import {
 export default class AddCategoryToAppointment1605384926127
   implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropColumn('products', 'category');
+
     await queryRunner.addColumn(
       'products',
       new TableColumn({
         name: 'category_id',
         type: 'uuid',
+        isNullable: true,
       }),
     );
 
@@ -30,6 +33,16 @@ export default class AddCategoryToAppointment1605384926127
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.addColumn(
+      'products',
+      new TableColumn({
+        name: 'category',
+        type: 'string',
+      }),
+    );
+
     await queryRunner.dropForeignKey('products', 'ProductCategory');
+
+    await queryRunner.dropColumn('products', 'category_id');
   }
 }
