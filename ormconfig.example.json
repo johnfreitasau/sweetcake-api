@@ -5,7 +5,7 @@
   "port": 5432,
   "username": "postgres",
   "password" : "docker",
-  "database": "justcupcakes",
+  "database": "sweetcake",
   "entities": [
     "./src/modules/**/infra/typeorm/entities/*.ts"
   ],
@@ -15,16 +15,5 @@
   "cli": {
     "migrationsDir": "./src/shared/infra/typeorm/migrations"
   }
- },
- {
-  "name" : "mongo",
-  "type" : "mongodb",
-  "host": "localhost",
-  "port": 27017,
-  "database": "justcupcakes",
-  "useUnifiedTopology": true,
-  "entities": [
-    "./src/modules/**/infra/typeorm/schemas/*.ts"
-  ]
  }
  ]
