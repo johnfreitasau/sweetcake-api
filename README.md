@@ -3,8 +3,14 @@
 </h1>
 
 <h3 align="center">
-  SweetCake - Your favorite dessert shop next to you.
+  SweetCake API
 </h3>
+
+<h4 align="center">
+  Your favorite dessert shop next to you
+</h4>
+
+
 <!-- E02041 -->
 <p align="center">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/johnfreitasau/sweetcake-api?color=%23FB8F0A">
@@ -27,12 +33,8 @@
   <a href="#closed_book-license">License</a>
 </p>
 
-<p align="left">
-  <img src=".github/docs/logo.png" width="200"/>
-</p>
-
-
 > [Click here to see the database model](https://dbdiagram.io/d/5fc08b093a78976d7b7d9b10)
+
 
 
 # :pushpin: Table of Contents
@@ -44,6 +46,27 @@
 * [Found a bug? Missing a specific feature?](#bug-issues)
 * [Contributing](#tada-contributing)
 * [License](#closed_book-license)
+
+
+# :rocket: Technologies
+
+- [Node.js](https://nodejs.org/en/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Express](https://expressjs.com/pt-br/)
+- [Redis](https://redis.io/)
+- [Celebrate](https://github.com/arb/celebrate#readme)
+- [Cors](https://github.com/expressjs/cors#readme)
+- [Multer](https://github.com/expressjs/multer)
+- [TypeORM](https://typeorm.io/#/)
+- [JWT-token](https://jwt.io/)
+- [uuid v4](https://github.com/thenativeweb/uuidv4/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Date-fns](https://date-fns.org/)
+- [Jest](https://jestjs.io/)
+- [Eslint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [EditorConfig](https://editorconfig.org/)
+
 
 # :rocket: Features
 
@@ -95,7 +118,19 @@ After copying the examples, make sure to fill the variables with new values.
 
 You must install [Docker](https://www.docker.com/) in your machine, fill the environment values related to database configurations and then run the following commands in order to create Postgres, Mongo and Redis containers.
 
-```docker-compose up```
+```
+# Create the postgreSQL instance using docker
+$ docker run --name sweekcake-postgres -e POSTGRES_USER=docker \
+              -e POSTGRES_DB=sweetcake -e POSTGRES_PASSWORD=docker \
+              -p 5432:5432 -d postgres
+
+# Create the mongoDB instance using docker
+$ docker run --name gobarber-mongodb -p 27017:27017 -d -t mongo
+
+# Create the Redis instance using docker
+$ docker run --name gobarber-redis -p 6379:6379 -d -t redis:alpine
+```
+
 
 # :runner: Getting Started
 
@@ -105,7 +140,7 @@ Run the transactions in order to configure the database schema
 
 Run the following command in order to start the application in a development environment:
 
-```yarn dev```
+```yarn dev:server```
 
 # :postbox: Faq
 
