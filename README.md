@@ -154,7 +154,7 @@ Feel free to **file a new issue** with a respective title and description on the
 
 # :tada: Contributing
 
-Check out the [contributing](https://github.com/johnfreitasau/sweetcake-api/CONTRIBUTING.md) page to see the best places to file issues, start discussions and begin contributing.
+Check out the [contributing](https://github.com/johnfreitasau/sweetcake-api/blob/master/CONTRIBUTING.md) page to see the best places to file issues, start discussions and begin contributing.
 
 # :closed_book: License
 
