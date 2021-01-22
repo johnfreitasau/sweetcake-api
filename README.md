@@ -3,12 +3,10 @@
 </h1>
 
 <h3 align="center">
-  SweetCake API
+  Your favorite dessert shop next to you
 </h3>
 
-<h4 align="center">
-  Your favorite dessert shop next to you
-</h4>
+<h4 align="center"> NodeJS | Express | Redis | JWT-token | TypeORM | PostgreSQL | TypeScript </h4>
 
 
 <!-- E02041 -->
@@ -33,7 +31,11 @@
   <a href="#closed_book-license">License</a>
 </p>
 
-> [Click here to see the database model](https://dbdiagram.io/d/5fc08b093a78976d7b7d9b10)
+
+Click [here](https://github.com/johnfreitasau/sweetcake-api) to see the Web repository.
+
+Click [here](https://dbdiagram.io/d/5fc08b093a78976d7b7d9b10) to see the Database model.
+
 
 
 
@@ -62,7 +64,6 @@
 - [uuid v4](https://github.com/thenativeweb/uuidv4/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Date-fns](https://date-fns.org/)
-- [Jest](https://jestjs.io/)
 - [Eslint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
 - [EditorConfig](https://editorconfig.org/)
